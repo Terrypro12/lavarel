@@ -2,13 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PagesController;
 
-Route::get('/', [PagesController::class, 'fnIndex']) -> name('xInicio');
-
-Route::get('/galeria/{numero?}', [PagesController::class, 'fnGaleria']) -> where('numero', '[0-9]+') -> name('xGaleria');
-
-Route::get('/lista', [PagesController::class, 'fnlista']) -> name('xLista');
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,32 +13,14 @@ Route::get('/lista', [PagesController::class, 'fnlista']) -> name('xLista');
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-/*
+
 Route::get('/', function () {
     return view('welcome');
-}) -> name('xInicio');
-
-
-
-Route::get('/saludo', function () {
-    return "Hola mundo desde Laravel xd....";
 });
 
-Route::get('/galeria/{numero?}', function ($numero=null) {
-    return "Este es el codigo de la foto: ".$numero;
-}) -> where('numero', '[0-9]+');
-
-Route ::view('/galeria', 'pagGaleria', ['valor' => 15]) -> name('xGaleria');
-
-Route::get('/lista', function (){
-    return view('pagLista');
-}) -> name('xLista');
-*/
-
-Route::get('/dashboard', function (){
+Route::get('/dashboard', function () {
     return view('dashboard');
-}) -> middleware(['auth', 'verified'])->name('dashboard');
-
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -52,4 +28,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require _DIR_.'/auth.php';
+require __DIR__.'/auth.php';
